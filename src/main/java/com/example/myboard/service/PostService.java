@@ -2,14 +2,15 @@ package com.example.myboard.service;
 
 import com.example.myboard.domain.entity.Post;
 import com.example.myboard.domain.request.PostCreateRequest;
+import com.example.myboard.domain.request.PostUpdateRequest;
 import com.example.myboard.domain.response.PostResponse;
 import com.example.myboard.repository.PostRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,5 +33,15 @@ public class PostService {
                 .map(p -> new PostResponse(p.getTitle(), p.getContent()))
                 .collect(Collectors.toList());
         return postResponseList;
+    }
+
+    public PostResponse updateWrite(Long id, PostUpdateRequest updateRequest) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + id));
+
+        post.update(updateRequest.getTitle(), updateRequest.getContent());
+        postRepository.save(post);
+
+        return new PostResponse(post.getTitle(), post.getContent());
     }
 }

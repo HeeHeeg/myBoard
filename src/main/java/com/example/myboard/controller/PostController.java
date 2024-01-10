@@ -1,6 +1,7 @@
 package com.example.myboard.controller;
 
 import com.example.myboard.domain.request.PostCreateRequest;
+import com.example.myboard.domain.request.PostUpdateRequest;
 import com.example.myboard.domain.response.PostResponse;
 import com.example.myboard.service.PostService;
 import jakarta.validation.Valid;
@@ -23,5 +24,13 @@ public class PostController {
     @GetMapping("/posts")
     public List<PostResponse> get() {
         return postService.getAllWrite();
+    }
+
+    @PutMapping("/posts/{id}")
+    public PostResponse update(
+            @PathVariable Long id,
+            @RequestBody @Valid PostUpdateRequest updateRequest) {
+
+        return postService.updateWrite(id, updateRequest);
     }
 }
