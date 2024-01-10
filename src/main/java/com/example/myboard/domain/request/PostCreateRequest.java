@@ -15,12 +15,6 @@ public class PostCreateRequest {
     @NotBlank(message = "내용을 입력해주세요.")
     private String content;
 
-
-//    @Builder
-//    public Board toEntity() {
-//        return Board.of(title, content);
-//    }
-
     // 게시글 작성용으로만 사용되는 DTO 생성
     @Builder
     public PostCreateRequest(String title, String content) {

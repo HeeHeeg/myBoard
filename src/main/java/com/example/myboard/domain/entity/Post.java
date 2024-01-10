@@ -27,11 +27,4 @@ public class Post {
         this.title = title;
         this.content = content;
     }
-
-//    public static Board of(String title, String content) {
-//        return Board.builder()
-//                .title(title)
-//                .content(content)
-//                .build();
-//    }
 }
